@@ -85,4 +85,29 @@ export const AuthProvider = ({ children }) => {
         history.push('/login')
     }
 
+
+    const contextData = {
+        user,
+        setUser,
+        authTokens,
+        setAuthTokens,
+        registerUser,
+        loginUser,
+        logoutUser,
+    }
+
+    useEffect(() => {
+        if (authTokens) {
+            setUser(jwt_decode(authTokens.access))
+        }
+        setLoading(false)
+
+    }, [authTokens, loading])
+
+
+    return (
+        <AuthContext.Provider value={contextData} >
+            {loading ? null : children}
+        </AuthContext.Provider>
+    )
 }
