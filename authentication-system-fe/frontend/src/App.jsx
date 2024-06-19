@@ -5,6 +5,7 @@ import PrivateRoute from "./utils/PrivateRoute";
 import Dashboard from "./views/Dashboard";
 import LoginPage from "./views/LoginPage";
 import RegisterPage from "./views/RegisterPage";
+import HomePage from "./views/HomePage";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <AuthProvider>
         <Navbar />
         <Routes>
+          <Route path='/' element={<HomePage />}></Route>
           <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
           <Route path='/login' element={<LoginPage />}> </Route>
           <Route path='/register' element={<RegisterPage />}></Route>
