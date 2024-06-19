@@ -4,6 +4,7 @@ import { AuthProvider } from "./context/AuthContext";
 import PrivateRoute from "./utils/PrivateRoute";
 import Dashboard from "./views/Dashboard";
 import LoginPage from "./views/LoginPage";
+import RegisterPage from "./views/RegisterPage";
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-          <Route path='/login' element={<LoginPage/>}> </Route>
+          <Route path='/login' element={<LoginPage />}> </Route>
+          <Route path='/register' element={<RegisterPage />}></Route>
         </Routes>
       </AuthProvider>
 
