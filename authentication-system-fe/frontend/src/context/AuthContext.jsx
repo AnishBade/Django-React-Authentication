@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from 'react'
 
 import { jwtDecode } from 'jwt-decode'
-import { useNavigate as useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 const AuthContext = createContext();
@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
 
     const [loading, setLoading] = useState(true);
 
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const loginUser = async (email, password) => {
         const response = await fetch('http://localhost:8000/api/token/', {
@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }) => {
             setAuthTokens(data)
             setUser(jwtDecode(data.access))
             localStorage.setItem('authTokens', JSON.stringify(data))
-            history.push('/')
+            navigate('/')
         } else {
             console.log(response.status);
             console.log("there was a server issue");
@@ -71,7 +71,7 @@ export const AuthProvider = ({ children }) => {
         })
 
         if (response.status == 201) {
-            history.push('/login')
+            navigate('/login')
         } else {
             console.log(response.status);
             console.log("there was a server issue");
@@ -83,7 +83,7 @@ export const AuthProvider = ({ children }) => {
         setAuthTokens(null);
         setUser(null);
         localStorage.removeItem('authTokens')
-        history.push('/login')
+        navigate('/login')
     }
 
 
