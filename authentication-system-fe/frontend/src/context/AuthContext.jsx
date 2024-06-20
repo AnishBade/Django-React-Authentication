@@ -9,9 +9,11 @@ const AuthContext = createContext();
 export default AuthContext;
 
 export const AuthProvider = ({ children }) => {
+
+
     const [authTokens, setAuthTokens] = useState(() =>
-        localStorage.getItem('authTokens')
-            ? JSON.stringify(localStorage.getItem('authTokens'))
+        localStorage.getItem("authTokens")
+            ? JSON.parse(localStorage.getItem("authTokens"))
             : null
     );
 
@@ -20,7 +22,7 @@ export const AuthProvider = ({ children }) => {
         localStorage.getItem('authTokens')
             ? jwtDecode(localStorage.getItem('authTokens'))
             : null
-    )
+    );
 
     const [loading, setLoading] = useState(true);
 
@@ -42,11 +44,15 @@ export const AuthProvider = ({ children }) => {
 
         console.log(data);
 
-        if (response.status == 200) {
+        if (response.status === 200) {
             console.log('Logged In')
+
             setAuthTokens(data)
+
             setUser(jwtDecode(data.access))
+
             localStorage.setItem('authTokens', JSON.stringify(data))
+
             navigate('/')
         } else {
             console.log(response.status);
@@ -100,6 +106,7 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         if (authTokens) {
             setUser(jwtDecode(authTokens.access))
+
         }
         setLoading(false)
 
